@@ -1,7 +1,7 @@
 import {
   MagnifyingGlassIcon,
   ShoppingCartIcon,
-  UsersIcon,
+  UserIcon,
 } from "@heroicons/react/24/outline";
 import Logo from "./icons/Logo";
 import Link from "next/link";
@@ -27,7 +27,9 @@ export default function Header({ color = "white" }: HeaderColor) {
       </Link>
       <div className="flex gap-4">
         <MagnifyingGlassIcon className="headerIcon" />
-        <UsersIcon className="headerIcon" />
+        <Link href="/profile">
+          <UserIcon className="headerIcon" />
+        </Link>
         <Link href="/cart" className="relative">
           <ShoppingCartIcon className="headerIcon" />
           {qty > 0 && (

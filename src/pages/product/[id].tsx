@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import ProductDetails from "@/components/ProductDetails";
 import ProductSelection from "@/components/ProductSelection";
-import Subscribe from "@/components/Subscribe";
+import Subscribe from "@/components/banners/Subscribe";
 import products from "@/utils/products";
 import { GetStaticProps } from "next";
 import Head from "next/head";

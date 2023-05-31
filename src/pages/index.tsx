@@ -1,11 +1,11 @@
 import Layout from "@/components/Layout";
-import Banner from "@/components/Banner";
-import Subscribe from "@/components/Subscribe";
-import MediumBanner from "@/components/MediumBanner";
-import Guarantees from "@/components/Guarantees";
+import MediumBanner from "@/components/banners/MediumBanner";
+import Guarantees from "@/components/banners/Guarantees";
 import ProductSelection from "@/components/ProductSelection";
 import { Metadata } from "next";
 import Head from "next/head";
+import Banner from "@/components/banners/Banner";
+import Subscribe from "@/components/banners/Subscribe";
 
 export default function Home() {
   return (
