@@ -1,10 +1,10 @@
 type ProductProps = {
+  id: number;
   img: string;
   name: string;
   price: number;
-  id: number;
-  description: string;
   quantity: number;
+  description: string;
 };
 
 type HeaderColor = {
@@ -12,9 +12,9 @@ type HeaderColor = {
 };
 
 type ProductSelectionProps = {
-  start: number;
   end: number;
   text: string;
+  start: number;
   alignCenter?: boolean;
 };
 
@@ -26,11 +26,11 @@ type CartItem = {
 type FormInputProps = {
   type: string;
   name: string;
-  value?: string;
-  required?: boolean;
   label: string;
-  onInput: (e: FormEvent<HTMLInputElement>, key: string) => void;
+  value?: string;
   formKey: string;
+  required?: boolean;
+  onInput: (e: FormEvent<HTMLInputElement>, key: string) => void;
 };
 
 type ProductFormData = {
@@ -39,9 +39,9 @@ type ProductFormData = {
   file: string;
   price: number;
   quantity: number;
-  description: string;
   isImage: boolean;
   isVideo: boolean;
+  description: string;
 
   // void args
   url: string;
@@ -56,50 +56,73 @@ type ProductFormData = {
 };
 
 type AuthFormData = {
-  firstname: string;
+  email: string;
   lastname: string;
   password: string;
-  email: string;
+  firstname: string;
 };
-
 
 type AuthMode = "signin" | "signup";
 
 type AuthPayload = {
-  access_token: string,
-  refresh_token: string
-}
+  role: Role;
+  access_token: string;
+  refresh_token: string;
+};
+
+type CookiesKeys = "token" | "refreshToken" | "role";
 
 type AuthBody = {
-  firstname?: string;
-  lastname?: string;
-  password: string;
   email: string;
-  role?: string
-}
+  role?: string;
+  password: string;
+  lastname?: string;
+  firstname?: string;
+};
+
+type OrderProps = {
+  id: number;
+  userEmail: string;
+  orderDate: string;
+  lastUpdate: string;
+  status: OrderStatus;
+  orderProducts: OrderProduct[];
+};
+
+type OrderProduct = {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+  quantity: number;
+  productId: number;
+};
 
 interface CartState {
   cart: CartItem[];
-  historyCart: CartItem[];
   discount: number;
+  historyCart: CartItem[];
   historyDiscount: number;
+  comfirmOrder: () => void;
+  removeFromCart: (id: number) => void;
   validateCupom: (cupom: string) => void;
   addToCart: (id: number, qty: number) => void;
-  removeFromCart: (id: number) => void;
-  comfirmOrder: () => void;
 }
 
 type Role = "USER" | "ADMIN" | "MANAGER" | "";
 
-interface AuthState {
-  token: string;
+interface RoleState {
   role: Role;
-  isLogged: boolean;
-  refreshToken: string;
-  signOut: () => void;
-  signIn: (payload: AuthPayload) => void;
+  setRole: (role: Role) => void;
 }
 
 interface IAuthForm {
   mode: AuthMode;
+}
+
+enum OrderStatus {
+  CONFIRMED = "CONFIRMED",
+  SHIPPING = "SHIPPING",
+  DELIVERED = "DELIVERED",
+  CANCELED = "CANCELED",
 }

@@ -7,22 +7,24 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 export default function StockPage() {
-  const [currentProduct, setCurrentProduct] = useState<ProductProps|undefined>();
+  const [currentProduct, setCurrentProduct] = useState<
+    ProductProps | undefined
+  >();
   const [showForm, setShowForm] = useState(false);
 
   const handleEdit = (product: ProductProps) => {
-    setCurrentProduct(product)
+    setCurrentProduct(product);
     setShowForm(true);
-  }
+  };
 
   const handleOnCloseForm = () => {
     setShowForm(false);
-  }
+  };
 
   const handleAddNew = () => {
     setCurrentProduct(undefined);
     setShowForm(true);
-  }
+  };
 
   return (
     <Layout>
@@ -30,14 +32,21 @@ export default function StockPage() {
       <main className="defaultMain">
         <div className="flex justify-between items-center my-3">
           <h2 className="">{products.length} Produtos cadastrados</h2>
-          <button className="submitBtn flex" onClick={() => handleAddNew()}><PlusIcon className="h-5 mr-1"/> Adicionar novo</button>
+          <button
+            className="submitBtn flex w-fit"
+            onClick={() => handleAddNew()}
+          >
+            <PlusIcon className="h-5 mr-1" /> Adicionar novo
+          </button>
         </div>
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-2">
           {products.map((product) => (
             <StockProduct {...product} key={product.id} onEdit={handleEdit} />
           ))}
         </section>
-        {showForm && <StockForm product={currentProduct} onClose={handleOnCloseForm}/>}
+        {showForm && (
+          <StockForm product={currentProduct} onClose={handleOnCloseForm} />
+        )}
       </main>
     </Layout>
   );

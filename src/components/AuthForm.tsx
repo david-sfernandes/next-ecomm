@@ -1,11 +1,10 @@
 import { FormEvent, useState } from "react";
 import FormInput from "./FormInput";
 import { auth } from "@/utils/auth";
-import useAuth from "@/utils/authStore";
 import { useRouter } from "next/router";
+import useCookies from "@/utils/cookies";
 
 export default function AuthForm({ mode }: IAuthForm) {
-  const signIn = useAuth((state) => state.signIn);
   const router = useRouter();
   const [isPasswordValid, setIsPasswordValid] = useState(mode == "signin");
   const [loading, setLoading] = useState(false);
@@ -26,8 +25,9 @@ export default function AuthForm({ mode }: IAuthForm) {
       return;
     }
     try {
-      const res = await auth(mode, data);
-      signIn(res);
+      const res: AuthPayload = await auth(mode, data);
+      
+      useCookies().save(res);
       router.push("/");
     } catch (er) {
       setError(`${er}`);
@@ -35,22 +35,16 @@ export default function AuthForm({ mode }: IAuthForm) {
     setLoading(false);
   };
 
-  const handleInput = (
-    e: FormEvent<HTMLInputElement>,
-    key: string
-  ) => {
+  const handleInput = (e: FormEvent<HTMLInputElement>, key: string) => {
     setData((data) => {
-      data[key as keyof AuthFormData] = e.currentTarget.value.trim();
+      data[key as keyof AuthFormData] = e.target.value.trim();
       return data;
     });
   };
 
-  const handleCheckPassword = (
-    e: FormEvent<HTMLInputElement>,
-    key: string
-  ) => {
+  const handleCheckPassword = (e: FormEvent<HTMLInputElement>, key: string) => {
     let password = data[key as keyof AuthFormData];
-    setIsPasswordValid(password == e.currentTarget.value.trim());
+    setIsPasswordValid(password == e.target.value.trim());
   };
 
   return (

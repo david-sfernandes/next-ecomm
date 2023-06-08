@@ -1,36 +1,21 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const useAuth = create<AuthState>()(
+const useRole = create<RoleState>()(
   persist(
     (set) => ({
-      token: "",
-      refreshToken: "",
       role: "",
-      isLogged: false,
-      signIn: (payload) => {
+      setRole: (role) => {
         set((state) => {
-          state.isLogged = true;
-          state.role = "USER";
-          state.token = payload.access_token;
-          state.refreshToken = payload.refresh_token;
+          state.role = role;
           return state;
         });
       },
-      signOut: () => {
-        set((state) => {
-          state.role = "";
-          state.token = "";
-          state.isLogged = false;
-          state.refreshToken = "";
-          return state;
-        })
-      }
     }),
     {
-      name: "auth-storage",
+      name: "role-storage",
     }
   )
 );
 
-export default useAuth;
+export default useRole;
