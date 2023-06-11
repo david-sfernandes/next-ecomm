@@ -6,7 +6,7 @@ signedinPages.concat(managerPages);
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  if (signedinPages.find((p) => p === path)) return;
+  if (!signedinPages.find((p) => p === path)) return;
 
   const token = req.cookies.get("token")?.value;
   if (!token) return NextResponse.redirect(new URL("/signin", req.url));

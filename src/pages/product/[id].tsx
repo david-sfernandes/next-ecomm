@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import ProductDetails from "@/components/ProductDetails";
 import ProductSelection from "@/components/ProductSelection";
 import Subscribe from "@/components/banners/Subscribe";
-import products from "@/utils/products";
+import { getProductById, getProducts } from "@/utils/products";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 
@@ -26,14 +26,15 @@ export const getStaticProps: GetStaticProps<{
   product?: ProductProps;
 }> = async (context) => {
   const { id } = context.params as unknown as { id: number };
-  const product = products.find((p) => p.id == id);
+  const product = await getProductById(id);
 
   return {
     props: { product },
   };
 };
 
-export const getStaticPaths = () => {
+export const getStaticPaths = async () => {
+  const products: ProductProps[] = await getProducts();
   const paths = products.map((product) => ({
     params: { id: product.id.toString() },
   }));

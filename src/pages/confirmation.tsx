@@ -1,15 +1,15 @@
 import CartItem from "@/components/CartItem";
 import Layout from "@/components/Layout";
 import TotalSection from "@/components/TotalSection";
-import getOrderNumber from "@/utils/getOrderNumber";
 import useCart from "@/utils/store";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function ConfirmationPage() {
-  const {historyCart, historyDiscount} = useCart((state) => state);
-  const orderNumber = getOrderNumber();
+  const historyCart = useCart((state) => state.historyCart);
+  const router = useRouter();
+  const { order } = router.query;
 
   return (
     <Layout color="black">
@@ -22,18 +22,20 @@ export default function ConfirmationPage() {
         <div className="flex flex-col justify-center items-center p-4 border bg-white shadow-md m-4 max-w-sm mx-auto gap-1">
           <CheckCircleIcon className="h-10 text-green-500" />
           <p className="text-lg font-medium">Numero do pedido</p>
-          <p># {orderNumber}</p>
+          <p># {order}</p>
         </div>
         {historyCart.length > 0 && (
           <>
             <h3 className="sectionTitle">Detalhes do seu pedido</h3>
             <ul>
-              {historyCart.map(item => <CartItem item={item} hideControls/>)}
+              {historyCart.map((item) => (
+                <CartItem item={item} hideControls />
+              ))}
             </ul>
-            <TotalSection cart={historyCart} discount={historyDiscount} hideControls />
+            <TotalSection cart={historyCart} hideControls />
           </>
         )}
       </main>
     </Layout>
-  )
+  );
 }

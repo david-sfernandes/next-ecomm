@@ -26,7 +26,9 @@ export default function Header({ color = "white" }: HeaderColor) {
         <p className="font-semibold text-lg">MoveStore</p>
       </Link>
       <div className="flex gap-4">
-        <MagnifyingGlassIcon className="headerIcon" />
+				<Link href="/all">
+					<MagnifyingGlassIcon className="headerIcon" />
+				</Link>
         <Link href="/profile">
           <UserIcon className="headerIcon" />
         </Link>

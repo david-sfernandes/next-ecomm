@@ -7,13 +7,11 @@ export const auth = async (mode: AuthMode, data: AuthFormData) => {
 
   const res = await fetch(`http://localhost:8080/api/v1/auth/${mode}`, {
     method: "POST",
+    headers:{
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify(body),
-  }).then(r => {
-    console.log(r)
-    return r.json();
-  });
-  if (res.status > 399 && res.status < 200) {
-    throw new Error();
-  }
-  return await res;
+  })
+  if (res.status > 399 && res.status < 200) throw new Error();
+  return await res.json();
 };

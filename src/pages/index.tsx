@@ -16,9 +16,9 @@ export default function Home() {
       <Banner />
       <main className="max-w-6xl mx-auto p-4">
         <MediumBanner />
-        <ProductSelection start={0} end={4} text="Selecionado para você"/>
+        <ProductSelection ids={[1, 2, 3, 4]} text="Selecionado para você"/>
         <Guarantees />
-        <ProductSelection start={2} end={6} text="Destaque de hoje" alignCenter/>
+        <ProductSelection ids={[4, 5, 6, 7]} text="Destaque de hoje" alignCenter/>
       </main>
       <Subscribe />
     </Layout>

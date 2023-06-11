@@ -1,6 +1,8 @@
+declare module 'cookie-cutter';
+
 type ProductProps = {
   id: number;
-  img: string;
+  image: string;
   name: string;
   price: number;
   quantity: number;
@@ -12,9 +14,8 @@ type HeaderColor = {
 };
 
 type ProductSelectionProps = {
-  end: number;
   text: string;
-  start: number;
+  ids: number[];
   alignCenter?: boolean;
 };
 
@@ -27,7 +28,7 @@ type FormInputProps = {
   type: string;
   name: string;
   label: string;
-  value?: string;
+  value?: any;
   formKey: string;
   required?: boolean;
   onInput: (e: FormEvent<HTMLInputElement>, key: string) => void;
@@ -118,11 +119,4 @@ interface RoleState {
 
 interface IAuthForm {
   mode: AuthMode;
-}
-
-enum OrderStatus {
-  CONFIRMED = "CONFIRMED",
-  SHIPPING = "SHIPPING",
-  DELIVERED = "DELIVERED",
-  CANCELED = "CANCELED",
 }

@@ -2,15 +2,17 @@ import HeadImg from "@/components/HeadImg";
 import Layout from "@/components/Layout";
 import StockForm from "@/components/StockForm";
 import StockProduct from "@/components/StockProduct";
-import products from "@/utils/products";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import cookieCutter from "cookie-cutter";
+import { getProducts } from "@/utils/products";
 
 export default function StockPage() {
   const [currentProduct, setCurrentProduct] = useState<
     ProductProps | undefined
   >();
   const [showForm, setShowForm] = useState(false);
+  const [products, setProducts] = useState<ProductProps[]>([]);
 
   const handleEdit = (product: ProductProps) => {
     setCurrentProduct(product);
@@ -25,6 +27,11 @@ export default function StockPage() {
     setCurrentProduct(undefined);
     setShowForm(true);
   };
+
+  useEffect(() => {
+    const fetchProducts = async () => setProducts(await getProducts());
+    fetchProducts();
+  }, []);
 
   return (
     <Layout>

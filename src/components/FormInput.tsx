@@ -22,7 +22,7 @@ export default function FormInput({
         required={required}
         className="formInput"
         onInput={(e) => onInput(e, formKey)}
-        defaultValue={value}
+        value={value}
       />
     </div>
   );

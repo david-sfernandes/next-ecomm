@@ -1,40 +1,56 @@
 import formatPrice from "@/utils/formatPrice";
+import orders from "@/utils/orders";
 import { getProductById } from "@/utils/products";
 import useCart from "@/utils/store";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import cookieCutter from "cookie-cutter";
 
 export default function TotalSection({
   cart,
-  discount,
-  hideControls,
+	hideControls,
 }: {
-  cart: CartItem[];
-  discount: number;
+	cart: CartItem[];
   hideControls?: boolean;
 }) {
-  const [subTotal, setSubTotal] = useState(0);
+  const router = useRouter();
+	const [values, setValues] = useState<number[]>(new Array(cart.length).fill(0))
   const [total, setTotal] = useState(0);
   const [cupom, setCupom] = useState("");
-  const { comfirmOrder, validateCupom } = useCart((state) => state);
-  const router = useRouter();
-
+  const [error, setError] = useState("");
+  const [subTotal, setSubTotal] = useState(0);
+	const [token, setToken] = useState("")
+  const { comfirmOrder, validateCupom, discount } = useCart(
+    (state) => state
+  );
   useEffect(() => {
-    setSubTotal(0);
-    setTotal(0);
-    cart.map((item) => {
-      let product = getProductById(item.id);
-      if (product) {
-        let price = product.price;
-        setSubTotal((value) => (value += price * item.qty));
-      }
-    });
-    setTotal(subTotal * (1 - discount));
-  });
+	setToken(cookieCutter.get("token"))
+		setSubTotal(0);
+		cart.forEach(async(item, i) => {
+			await getProductById(item.id).then((product) => {
+				setValues((values) => {
+					values[i] = product.price * item.qty;
+					setSubTotal(values.reduce((value, acc) => acc += value, 0))
+					return values;
+				});
+			});
+		});
+  }, [cart]);
+	
+	
+	useEffect(() => {
+		setTotal(0);
+		setTotal(subTotal * (1 - discount));
+	}, [subTotal]);
 
-  const handleConfirm = () => {
-    comfirmOrder();
-    router.push("/confirmation");
+  const handleConfirm = async () => {
+    orders
+      .postOrder(token, cart)
+      .then((res: OrderProps) => {
+        comfirmOrder();
+        router.push(`/confirmation?order=${res.id}`);
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -42,9 +58,7 @@ export default function TotalSection({
       <ul className="bg-zinc-200 p-3">
         {!hideControls && (
           <li className="totalSectionLi">
-            <p className="totalSectionText">
-              Insira seu cupom
-            </p>
+            <p className="totalSectionText">Insira seu cupom</p>
             <div className="scale-85 text-end">
               <input
                 type="text"
@@ -90,6 +104,11 @@ export default function TotalSection({
             >
               Concluir compra
             </button>
+          </li>
+        )}
+        {error && (
+          <li>
+            <p className="text-red-500 text-sm">{error}</p>
           </li>
         )}
       </ul>

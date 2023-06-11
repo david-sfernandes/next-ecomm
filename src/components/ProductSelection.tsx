@@ -1,17 +1,30 @@
-import products from "@/utils/products";
+import {getProductById, getProducts} from "@/utils/products";
 import Card from "./Card";
+import { useEffect, useState } from "react";
 
 export default function ProductSelection({
-  start,
-  end,
+  ids,
   text,
   alignCenter
 }: ProductSelectionProps) {
+  const [products, setProducts] = useState<ProductProps[]>([]);
+  useEffect(() => {
+		async function fetchProducts() {
+			const promises = ids.map((id) => getProductById(id));
+			Promise.all(promises).then((prods: ProductProps[]) => {
+				console.log(prods);
+				setProducts(prods);						
+			})
+		}
+		fetchProducts()
+  }, []);
+	
+  
   return (
     <section>
       <h2 className={`sectionTitle  ${alignCenter && "text-center"}`}>{text}</h2>
       <div className="flex gap-8 my-3 flex-wrap justify-center">
-        {products.slice(start, end).map((product) => (
+        {products.map((product) => (
           <Card {...product} key={product.id} />
         ))}
       </div>

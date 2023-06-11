@@ -8,7 +8,7 @@ export default function StockProduct(product: ProductProps & onEditProp) {
   return (
     <div className="roundedCard flex my-0 items-center">
       <div className="w-28 h-40 relative bg-zinc-300 flex-shrink-0">
-        <img src={product.img} alt={product.name} className="productImg" />
+        <img src={product.image} alt={product.name} className="productImg" />
       </div>
       <div className="mx-2 w-full">
         <h3 className="capitalize font-medium text-xl">{product.name}</h3>

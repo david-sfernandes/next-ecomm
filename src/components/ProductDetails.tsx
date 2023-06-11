@@ -23,7 +23,7 @@ export default function ProductDetails({ product }: { product: ProductProps }) {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
       <div className="relative w-full bg-gray-300 min-h-fit h-[85vh]">
-        <img className="productImg" src={product.img} alt="Product image" />
+        <img className="productImg" src={product.image} alt="Product image" />
       </div>
       <div>
         <h1 className="font-semibold text-3xl capitalize">{product.name}</h1>

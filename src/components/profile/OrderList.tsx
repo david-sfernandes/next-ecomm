@@ -9,7 +9,7 @@ export default function OrderList({
   role: Role;
   orderList: OrderProps[];
 }) {
-  const isAdmin = role && role == "USER";
+  const isAdmin = role && role == "ADMIN";
 
   return (
     <section>
@@ -23,11 +23,11 @@ export default function OrderList({
           </Link>
         )}
       </div>
-      <p className="w-full text-sm py-1">3 pedidos realizados</p>
+      <p className="w-full text-sm py-1">{orderList.length} pedidos realizados</p>
       {orderList && orderList.length == 0 && <h3>Você ainda não realizou nenhum pedido.</h3>}
       {isAdmin
-        ? orderList.map((order) => <Order order={order} />)
-        : orderList.map((order) => <AdminOrder order={order} />)}
+        ? orderList.map((order) => <AdminOrder order={order} />)
+        : orderList.map((order) => <Order order={order} />)}
     </section>
   );
 }

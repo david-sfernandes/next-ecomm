@@ -1,8 +1,10 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import FormInput from "./FormInput";
 import { FormEvent, useState, useRef, useEffect } from "react";
-import { addProduct } from "@/utils/addProduct";
 import { ProductRequest } from "@/utils/productRequest";
+import cookieCutter from "cookie-cutter";
+import { useRouter } from "next/router";
+import { addProduct } from "../utils/products";
 
 export default function StockForm({
   product,
@@ -13,21 +15,25 @@ export default function StockForm({
 }) {
   const [data, setData] = useState<ProductProps>({
     id: 0,
-    img: "",
+    image: "",
     name: "",
     price: 0,
     quantity: 0,
     description: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState("");
   const fileInput = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
+    setToken(cookieCutter.get("token"));
     if (product) setData(product);
   }, []);
 
   const handleInput = (e: FormEvent<HTMLInputElement>, key: string) => {
     setData((data) => {
-      let v = e.currentTarget.value;
+      let v = e.target.value;
       let k = key as keyof ProductProps;
 
       if (k == "price" || k == "quantity" || k == "id") data[k] = +v;
@@ -37,15 +43,21 @@ export default function StockForm({
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     if (
       data &&
       fileInput.current?.files &&
       fileInput.current?.files.length > 0
     ) {
       const requestBody = new ProductRequest(data, fileInput.current?.files[0]);
-      addProduct("POST", requestBody).then(res => console.log(res));
+      addProduct(token, "POST", requestBody)
+        .then((res) => console.log(res))
+        .then(() => {
+          setIsLoading(false);
+          router.reload();
+        });
     }
   };
 
@@ -54,7 +66,7 @@ export default function StockForm({
       className="fixed bg-slate-600 bg-opacity-40 h-screen w-screen flex 
     justify-center items-center top-0 left-0 right-0 bottom-0 z-20 scroll"
     >
-      <div className="roundedCard block relative overflow-hidden max-w-[98vw]">
+      <div className="roundedCard block relative overflow-hidden w-5xl max-w-[98vw]">
         <div className="flex justify-between mb-1 text-gray-500">
           <h3>{data ? "Editar produto" : "Adicionar novo produto"}</h3>
           <button onClick={() => onClose()}>
@@ -64,11 +76,11 @@ export default function StockForm({
         <form className="" onSubmit={(e) => handleSubmit(e)}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[80vh] overflow-auto pb-4">
             <div>
-              {data.img && (
+              {data.image && (
                 <div className="w-full h-80 relative bg-zinc-300 max-w-[240px] mx-auto">
                   <img
                     className="productImg"
-                    src={data.img}
+                    src={data.image}
                     alt={`Image ${data.name}`}
                   />
                 </div>
@@ -98,6 +110,7 @@ export default function StockForm({
                 type="text"
                 label="Nome"
                 name="name"
+                value={data.name}
                 onInput={handleInput}
               />
               <FormInput
@@ -105,7 +118,7 @@ export default function StockForm({
                 type="number"
                 label="Preço"
                 name="price"
-                value={data.price.toString()}
+                value={data.price}
                 onInput={handleInput}
               />
               <FormInput
@@ -113,7 +126,7 @@ export default function StockForm({
                 type="number"
                 label="Quantidade disponível"
                 name="quantity"
-                value={data.quantity.toString()}
+                value={data.quantity}
                 onInput={handleInput}
               />
               <FormInput
@@ -127,11 +140,19 @@ export default function StockForm({
             </div>
           </div>
           <div className="flex bottom-0 bg-white border-t py-2 w-full p-3 justify-end gap-2">
-            <button className="redBtn" onClick={() => onClose()}>
+            <button
+              className="redBtn"
+              onClick={() => onClose()}
+              disabled={isLoading}
+            >
               Cancelar
             </button>
-            <button type="submit" className="submitBtn">
-              Salvar
+            <button type="submit" className="submitBtn" disabled={isLoading}>
+              {isLoading ? (
+                <div className="border-2 border-blue-100 border-r-blue-500 h-4 w-4 animate-spin rounded-full mx-auto" />
+              ) : (
+                "Salvar"
+              )}
             </button>
           </div>
         </form>

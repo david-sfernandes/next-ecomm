@@ -3,9 +3,11 @@ import FormInput from "./FormInput";
 import { auth } from "@/utils/auth";
 import { useRouter } from "next/router";
 import useCookies from "@/utils/cookies";
+import useRole from "@/utils/authStore";
 
 export default function AuthForm({ mode }: IAuthForm) {
   const router = useRouter();
+  const setRole = useRole(state => state.setRole)
   const [isPasswordValid, setIsPasswordValid] = useState(mode == "signin");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -26,8 +28,8 @@ export default function AuthForm({ mode }: IAuthForm) {
     }
     try {
       const res: AuthPayload = await auth(mode, data);
-      
       useCookies().save(res);
+      setRole(res.role);
       router.push("/");
     } catch (er) {
       setError(`${er}`);
