@@ -5,15 +5,13 @@ export default function FormInput({
   type,
   formKey,
   onInput,
-  value
+  value,
 }: FormInputProps) {
   return (
     <div className="mb-6">
-      <label
-        htmlFor={name}
-        className="formLabel"
-      >
-        {label}{required && <span className="text-red-600">*</span>}
+      <label htmlFor={name} className="formLabel">
+        {label}
+        {required && <span className="text-red-600">*</span>}
       </label>
       <input
         id={name}
@@ -27,5 +25,3 @@ export default function FormInput({
     </div>
   );
 }
-
-

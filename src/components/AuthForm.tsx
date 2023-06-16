@@ -1,13 +1,13 @@
-import { FormEvent, useState } from "react";
-import FormInput from "./FormInput";
 import { auth } from "@/utils/auth";
-import { useRouter } from "next/router";
-import useCookies from "@/utils/cookies";
 import useRole from "@/utils/authStore";
+import cookies from "@/utils/cookies";
+import { useRouter } from "next/router";
+import { ChangeEvent, useState } from "react";
+import FormInput from "./FormInput";
 
 export default function AuthForm({ mode }: IAuthForm) {
   const router = useRouter();
-  const setRole = useRole(state => state.setRole)
+  const setRole = useRole((state) => state.setRole);
   const [isPasswordValid, setIsPasswordValid] = useState(mode == "signin");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -18,7 +18,7 @@ export default function AuthForm({ mode }: IAuthForm) {
     email: "",
   });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     if (!isPasswordValid) {
@@ -28,7 +28,7 @@ export default function AuthForm({ mode }: IAuthForm) {
     }
     try {
       const res: AuthPayload = await auth(mode, data);
-      useCookies().save(res);
+      cookies.save(res);
       setRole(res.role);
       router.push("/");
     } catch (er) {
@@ -37,14 +37,17 @@ export default function AuthForm({ mode }: IAuthForm) {
     setLoading(false);
   };
 
-  const handleInput = (e: FormEvent<HTMLInputElement>, key: string) => {
+  const handleInput = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     setData((data) => {
       data[key as keyof AuthFormData] = e.target.value.trim();
       return data;
     });
   };
 
-  const handleCheckPassword = (e: FormEvent<HTMLInputElement>, key: string) => {
+  const handleCheckPassword = (
+    e: ChangeEvent<HTMLInputElement>,
+    key: string
+  ) => {
     let password = data[key as keyof AuthFormData];
     setIsPasswordValid(password == e.target.value.trim());
   };

@@ -1,22 +1,16 @@
 import formatPrice from "@/utils/formatPrice";
 import orders from "@/utils/orders";
-import { FormEvent, useEffect, useState } from "react";
-import cookieCutter from "cookie-cutter";
+import { FormEvent, useState } from "react";
 import { OrderStatus } from "../../../typings/OrderStatus";
 
 export default function AdminOrder({ order }: { order: OrderProps }) {
   const [disable, setDisable] = useState(true);
   const [status, setStatus] = useState(order.status);
-  const [token, setToken] = useState("");
   const orderDate = new Date(order.orderDate);
   const totalValue = order.orderProducts.reduce(
     (sum, op) => (sum += op.price),
     0
   );
-
-  useEffect(() => {
-    setToken(cookieCutter.get("token"))
-  }, []);
 
   const handleInput = (e: FormEvent<HTMLSelectElement>) => {
     setDisable(false);
@@ -54,7 +48,7 @@ export default function AdminOrder({ order }: { order: OrderProps }) {
       <button
         className="submitBtn my-auto"
         disabled={disable}
-        onClick={() => orders.updateStatus(status, order.id, token)}
+        onClick={() => orders.updateStatus(status, order.id)}
       >
         Salvar
       </button>

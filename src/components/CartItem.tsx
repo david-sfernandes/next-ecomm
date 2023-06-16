@@ -1,10 +1,10 @@
-import Link from "next/link";
-import useCart from "@/utils/store";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import formatPrice from "@/utils/formatPrice";
 import { getProductById } from "@/utils/products";
+import useCart from "@/utils/store";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function CartItem({
   item,
@@ -15,7 +15,7 @@ export default function CartItem({
 }) {
   const { addToCart, removeFromCart } = useCart((state) => state);
   const [product, setProduct] = useState<ProductProps>();
-	const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchProduct() {
@@ -57,9 +57,9 @@ export default function CartItem({
                   className="qtyBtn px-[10px] py-1 text-sm"
                   disabled={item.qty < 2}
                   onClick={() => {
-										addToCart(item.id, item.qty - 1)
-										router.reload()
-									}}
+                    addToCart(item.id, item.qty - 1);
+                    router.reload();
+                  }}
                 >
                   -
                 </button>
@@ -70,9 +70,9 @@ export default function CartItem({
                   className="qtyBtn  px-[10px] py-1 text-sm"
                   disabled={item.qty > 9}
                   onClick={() => {
-										addToCart(item.id, item.qty + 1); 
-										router.reload();
-									}}
+                    addToCart(item.id, item.qty + 1);
+                    router.reload();
+                  }}
                 >
                   +
                 </button>

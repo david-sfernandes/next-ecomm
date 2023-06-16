@@ -2,50 +2,49 @@ import formatPrice from "@/utils/formatPrice";
 import orders from "@/utils/orders";
 import { getProductById } from "@/utils/products";
 import useCart from "@/utils/store";
+import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import cookieCutter from "cookie-cutter";
 
 export default function TotalSection({
   cart,
-	hideControls,
+  hideControls,
 }: {
-	cart: CartItem[];
+  cart: CartItem[];
   hideControls?: boolean;
 }) {
   const router = useRouter();
-	const [values, setValues] = useState<number[]>(new Array(cart.length).fill(0))
+  const [values, setValues] = useState<number[]>(
+    new Array(cart.length).fill(0)
+  );
   const [total, setTotal] = useState(0);
   const [cupom, setCupom] = useState("");
   const [error, setError] = useState("");
   const [subTotal, setSubTotal] = useState(0);
-	const [token, setToken] = useState("")
-  const { comfirmOrder, validateCupom, discount } = useCart(
-    (state) => state
-  );
+  const [token, setToken] = useState("");
+  const { comfirmOrder, validateCupom, discount } = useCart((state) => state);
   useEffect(() => {
-	setToken(cookieCutter.get("token"))
-		setSubTotal(0);
-		cart.forEach(async(item, i) => {
-			await getProductById(item.id).then((product) => {
-				setValues((values) => {
-					values[i] = product.price * item.qty;
-					setSubTotal(values.reduce((value, acc) => acc += value, 0))
-					return values;
-				});
-			});
-		});
+    setToken(cookieCutter.get("token"));
+    setSubTotal(0);
+    cart.forEach(async (item, i) => {
+      await getProductById(item.id).then((product) => {
+        setValues((values) => {
+          values[i] = product.price * item.qty;
+          setSubTotal(values.reduce((value, acc) => (acc += value), 0));
+          return values;
+        });
+      });
+    });
   }, [cart]);
-	
-	
-	useEffect(() => {
-		setTotal(0);
-		setTotal(subTotal * (1 - discount));
-	}, [subTotal]);
+
+  useEffect(() => {
+    setTotal(0);
+    setTotal(subTotal * (1 - discount));
+  }, [subTotal]);
 
   const handleConfirm = async () => {
     orders
-      .postOrder(token, cart)
+      .postOrder(cart)
       .then((res: OrderProps) => {
         comfirmOrder();
         router.push(`/confirmation?order=${res.id}`);

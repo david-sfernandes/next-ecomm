@@ -1,6 +1,6 @@
 import useCart from "@/utils/store";
-import ColorOption from "./ColorOption";
 import { useState } from "react";
+import ColorOption from "./ColorOption";
 
 export default function ProductDetails({ product }: { product: ProductProps }) {
   const [qty, setQty] = useState(1);

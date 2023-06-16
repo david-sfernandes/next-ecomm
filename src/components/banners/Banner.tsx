@@ -14,9 +14,11 @@ export default function Banner() {
         <h1 className="font-bold text-5xl sm:w-1/3">
           Transforme sua casa em um lar
         </h1>
-        <p className="sm:w-2/3 lg:w-1/3 mt-2">Use o cupom CASA10 para 10% de desconto</p>
+        <p className="sm:w-2/3 lg:w-1/3 mt-2">
+          Use o cupom CASA10 para 10% de desconto
+        </p>
         <a href="../all" className="flex text-sm items-center font-light mt-2">
-          <ArrowRightCircleIcon className="h-5 text-blue-500 mr-2"/>
+          <ArrowRightCircleIcon className="h-5 text-blue-500 mr-2" />
           Veja todos os nossos produtos
         </a>
       </div>

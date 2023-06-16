@@ -1,7 +1,7 @@
-import Header from "./Header";
-import Footer from "./Footer";
 import { Inter } from "next/font/google";
 import { PropsWithChildren } from "react";
+import Footer from "./Footer";
+import Header from "./Header";
 
 const inter = Inter({ subsets: ["latin"] });
 

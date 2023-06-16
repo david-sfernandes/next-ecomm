@@ -1,18 +1,18 @@
+import useCart from "@/utils/store";
 import {
   MagnifyingGlassIcon,
   ShoppingCartIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import Logo from "./icons/Logo";
 import Link from "next/link";
-import useCart from "@/utils/store";
 import { useEffect, useState } from "react";
+import Logo from "./icons/Logo";
 
 export default function Header({ color = "white" }: HeaderColor) {
   const cart = useCart((state) => state.cart);
   const [qty, setQty] = useState(0);
   useEffect(() => {
-    setQty(cart.length)
+    setQty(cart.length);
   }, [cart.length]);
 
   return (
@@ -26,17 +26,19 @@ export default function Header({ color = "white" }: HeaderColor) {
         <p className="font-semibold text-lg">MoveStore</p>
       </Link>
       <div className="flex gap-4">
-				<Link href="/all">
-					<MagnifyingGlassIcon className="headerIcon" />
-				</Link>
+        <Link href="/all">
+          <MagnifyingGlassIcon className="headerIcon" />
+        </Link>
         <Link href="/profile">
           <UserIcon className="headerIcon" />
         </Link>
         <Link href="/cart" className="relative">
           <ShoppingCartIcon className="headerIcon" />
           {qty > 0 && (
-            <span className="text-[10px] bg-red-500 py-[1px] px-[6px] text-white 
-            rounded-full absolute -top-2 -right-2">
+            <span
+              className="text-[10px] bg-red-500 py-[1px] px-[6px] text-white 
+            rounded-full absolute -top-2 -right-2"
+            >
               {qty}
             </span>
           )}

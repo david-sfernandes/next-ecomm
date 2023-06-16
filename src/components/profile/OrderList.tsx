@@ -23,11 +23,15 @@ export default function OrderList({
           </Link>
         )}
       </div>
-      <p className="w-full text-sm py-1">{orderList.length} pedidos realizados</p>
-      {orderList && orderList.length == 0 && <h3>Você ainda não realizou nenhum pedido.</h3>}
+      <p className="w-full text-sm py-1">
+        {orderList.length} pedidos realizados
+      </p>
+      {orderList && orderList.length == 0 && (
+        <h3>Você ainda não realizou nenhum pedido.</h3>
+      )}
       {isAdmin
-        ? orderList.map((order) => <AdminOrder order={order} />)
-        : orderList.map((order) => <Order order={order} />)}
+        ? orderList.map((order) => <AdminOrder order={order} key={order.id} />)
+        : orderList.map((order) => <Order order={order} key={order.id} />)}
     </section>
   );
 }

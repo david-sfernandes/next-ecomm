@@ -16,12 +16,10 @@ function getByKey(key: CookiesKeys) {
   return cookieCutter.get(key);
 }
 
-const useCookies = () => {
-  return {
-    save,
-    clean,
-    getByKey
-  };
+const cookies = {
+  save,
+  clean,
+  getByKey,
 };
 
-export default useCookies;
+export default cookies;

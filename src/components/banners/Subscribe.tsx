@@ -1,5 +1,6 @@
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+
 export default function Subscribe() {
   const [isSub, setIsSub] = useState(false);
   return (
@@ -14,7 +15,10 @@ export default function Subscribe() {
         </p>
         <div className="flex flex-wrap gap-3 my-2 transition-all duration-100">
           {isSub ? (
-            <p className="text-white text-xs flex items-center"><CheckIcon className="h-5 text-green-500 mr-1" /> Bem-vind@ a nossa newsletter!</p>
+            <p className="text-white text-xs flex items-center">
+              <CheckIcon className="h-5 text-green-500 mr-1" /> Bem-vind@ a
+              nossa newsletter!
+            </p>
           ) : (
             <>
               <input

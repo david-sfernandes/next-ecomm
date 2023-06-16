@@ -31,7 +31,7 @@ type FormInputProps = {
   value?: any;
   formKey: string;
   required?: boolean;
-  onInput: (e: FormEvent<HTMLInputElement>, key: string) => void;
+  onInput: (e: ChangeEvent<HTMLInputElement>, key: string) => void;
 };
 
 type ProductFormData = {

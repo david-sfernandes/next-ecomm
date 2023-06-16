@@ -1,11 +1,14 @@
-import { CheckBadgeIcon, CreditCardIcon, PresentationChartLineIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
+import {
+  CheckBadgeIcon,
+  CreditCardIcon,
+  PresentationChartLineIcon,
+  ShieldCheckIcon,
+} from "@heroicons/react/24/outline";
 
 export default function Guarantees() {
   return (
     <section className="my-20">
-      <h2 className="sectionTitle text-center">
-        Por que nos escolher?
-      </h2>
+      <h2 className="sectionTitle text-center">Por que nos escolher?</h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-20 flex-wrap justify-evenly text-zinc-900 mx-auto">
         <div className="w-2/3 mx-auto">
           <div className="GuaranteeIconBox">

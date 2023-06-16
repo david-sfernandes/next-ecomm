@@ -1,10 +1,10 @@
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import FormInput from "./FormInput";
-import { FormEvent, useState, useRef, useEffect } from "react";
 import { ProductRequest } from "@/utils/productRequest";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
+import { FormEvent, useEffect, useRef, useState, ChangeEvent } from "react";
 import { addProduct } from "../utils/products";
+import FormInput from "./FormInput";
 
 export default function StockForm({
   product,
@@ -31,7 +31,7 @@ export default function StockForm({
     if (product) setData(product);
   }, []);
 
-  const handleInput = (e: FormEvent<HTMLInputElement>, key: string) => {
+  const handleInput = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     setData((data) => {
       let v = e.target.value;
       let k = key as keyof ProductProps;
@@ -52,7 +52,7 @@ export default function StockForm({
       fileInput.current?.files.length > 0
     ) {
       const requestBody = new ProductRequest(data, fileInput.current?.files[0]);
-      addProduct(token, "POST", requestBody)
+      addProduct(token, requestBody)
         .then((res) => console.log(res))
         .then(() => {
           setIsLoading(false);

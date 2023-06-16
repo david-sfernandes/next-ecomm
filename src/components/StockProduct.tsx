@@ -2,7 +2,7 @@ import formatPrice from "@/utils/formatPrice";
 
 type onEditProp = {
   onEdit: (product: ProductProps) => void;
-}
+};
 
 export default function StockProduct(product: ProductProps & onEditProp) {
   return (
@@ -15,7 +15,10 @@ export default function StockProduct(product: ProductProps & onEditProp) {
         <h4 className="text-lg">{formatPrice(product.price)}</h4>
         <p>Qtd: {product.quantity}</p>
       </div>
-      <button onClick={() => product.onEdit(product)} className="submitBtn h-fit ml-auto">
+      <button
+        onClick={() => product.onEdit(product)}
+        className="submitBtn h-fit ml-auto"
+      >
         Editar
       </button>
     </div>

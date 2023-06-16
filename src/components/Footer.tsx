@@ -1,5 +1,3 @@
-import Logo from "./icons/Logo";
-import CIcon from "@coreui/icons-react";
 import {
   cibFacebookF,
   cibInstagram,
@@ -7,6 +5,8 @@ import {
   cibTwitter,
   cibYoutube,
 } from "@coreui/icons";
+import CIcon from "@coreui/icons-react";
+import Logo from "./icons/Logo";
 
 export default function Footer() {
   return (
@@ -19,8 +19,7 @@ export default function Footer() {
           </div>
           <p className="mt-2 mb-5 text-sm text-zinc-500">
             Sua melhor opção de compra online.
-            <br />
-            © 2023 MoveStore Inc.
+            <br />© 2023 MoveStore Inc.
           </p>
           <div className="flex gap-3">
             <span className="footerIconBtn">
@@ -59,7 +58,14 @@ export default function Footer() {
         </div>
       </section>
       <p className="text-sm text-zinc-500 text-center mt-2">
-        Feito por <a href="https://github.com/david-sfernandes" className="text-zinc-700 underline hover:text-blue-700">David S.</a> 🧡
+        Feito por{" "}
+        <a
+          href="https://github.com/david-sfernandes"
+          className="text-zinc-700 underline hover:text-blue-700"
+        >
+          David S.
+        </a>{" "}
+        🧡
       </p>
     </footer>
   );

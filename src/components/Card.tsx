@@ -9,9 +9,7 @@ export default function Card({ image, name, price, id }: ProductProps) {
       <p className="text-sm capitalize text-ellipsis h-5 overflow-hidden mt-2">
         {name}
       </p>
-      <h4 className="text-xl font-medium">
-        {formatPrice(price)}
-      </h4>
+      <h4 className="text-xl font-medium">{formatPrice(price)}</h4>
     </a>
   );
 }
