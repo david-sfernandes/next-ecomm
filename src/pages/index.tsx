@@ -18,7 +18,7 @@ export default function Home() {
         <MediumBanner />
         <ProductSelection ids={[1, 2, 3, 4]} text="Selecionado para você"/>
         <Guarantees />
-        <ProductSelection ids={[4, 5, 6, 7]} text="Destaque de hoje" alignCenter/>
+        <ProductSelection ids={[4, 5, 6, 7]} text="Destaque de hoje"/>
       </main>
       <Subscribe />
     </Layout>

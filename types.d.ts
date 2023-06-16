@@ -1,4 +1,4 @@
-declare module 'cookie-cutter';
+declare module "cookie-cutter";
 
 type ProductProps = {
   id: number;
@@ -16,7 +16,6 @@ type HeaderColor = {
 type ProductSelectionProps = {
   text: string;
   ids: number[];
-  alignCenter?: boolean;
 };
 
 type CartItem = {

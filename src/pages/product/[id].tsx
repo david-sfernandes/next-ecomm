@@ -14,7 +14,7 @@ export default function ProductPage({ product }: { product: ProductProps }) {
       </Head>
       <main className="max-w-6xl w-full min-h-screen mx-auto p-6 pt-24">
         <ProductDetails product={product} />
-        <ProductSelection start={6} end={10} text="Selecionado para você" />
+        <ProductSelection ids={[6, 7, 8, 9]} text="Selecionado para você" />
         <br />
         <Subscribe />
       </main>

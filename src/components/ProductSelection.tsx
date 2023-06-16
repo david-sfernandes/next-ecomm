@@ -4,8 +4,7 @@ import Card from "./Card";
 
 export default function ProductSelection({
   ids,
-  text,
-  alignCenter,
+  text
 }: ProductSelectionProps) {
   const [products, setProducts] = useState<ProductProps[]>([]);
   useEffect(() => {
@@ -21,7 +20,7 @@ export default function ProductSelection({
 
   return (
     <section>
-      <h2 className={`sectionTitle  ${alignCenter && "text-center"}`}>
+      <h2 className="sectionTitle text-center">
         {text}
       </h2>
       <div className="flex gap-8 my-3 flex-wrap justify-center">
