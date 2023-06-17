@@ -3,7 +3,7 @@ import { OrderStatus } from "../../typings/OrderStatus";
 import axiosConfigs from "./requestHandler";
 
 const ordersRequest = axios.create(
-  axiosConfigs.defaultConfiguration("/api/v1/order")
+  axiosConfigs.defaultConfiguration("https://movestore-production.up.railway.app/api/v1/order")
 );
 
 ordersRequest.interceptors.request.use(

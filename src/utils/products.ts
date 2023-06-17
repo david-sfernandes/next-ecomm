@@ -3,7 +3,7 @@ import { ProductRequest } from "./productRequest";
 import axiosConfigs from "./requestHandler";
 
 const productRequest = axios.create(
-  axiosConfigs.defaultConfiguration("/api/v1/products")
+  axiosConfigs.defaultConfiguration("https://movestore-production.up.railway.app/api/v1/products")
 );
 
 productRequest.interceptors.request.use(
@@ -17,14 +17,14 @@ productRequest.interceptors.response.use(
 );
 
 export async function getProductById(id: number) {
-  const res = await fetch(`/api/v1/products/${id}`);
+  const res = await fetch(`https://movestore-production.up.railway.app/api/v1/products/${id}`);
 
   if (res.status > 399 && res.status < 200) throw new Error();
   return await res.json();
 }
 
 export async function getProducts() {
-  const res = await fetch("/api/v1/products/");
+  const res = await fetch("https://movestore-production.up.railway.app/api/v1/products/");
 
   if (res.status > 399 && res.status < 200) throw new Error();
   return await res.json();

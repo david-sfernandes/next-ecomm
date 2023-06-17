@@ -1,5 +1,6 @@
 import { ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Banner() {
   return (
@@ -17,10 +18,10 @@ export default function Banner() {
         <p className="sm:w-2/3 lg:w-1/3 mt-2">
           Use o cupom CASA10 para 10% de desconto
         </p>
-        <a href="../all" className="flex text-sm items-center font-light mt-2">
+        <Link href="../all" className="flex text-sm items-center font-light mt-2">
           <ArrowRightCircleIcon className="h-5 text-blue-500 mr-2" />
           Veja todos os nossos produtos
-        </a>
+        </Link>
       </div>
     </section>
   );

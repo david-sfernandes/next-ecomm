@@ -8,14 +8,6 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -143,9 +135,7 @@ body {
   }
 
   .dropzoneFile {
-    @apply flex flex-col items-center justify-center w-full h-64 border-2 
-    border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 
-    dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 
-    dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600;
+    @apply flex flex-col items-center justify-center w-full h-64 border-2 rounded-lg
+    border-gray-300 border-dashed cursor-pointer bg-gray-50 hover:bg-gray-100;
   }
 }

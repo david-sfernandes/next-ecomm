@@ -1,8 +1,9 @@
 import formatPrice from "@/utils/formatPrice";
+import Link from "next/link";
 
 export default function Card({ image, name, price, id }: ProductProps) {
   return (
-    <a href={`/product/${id}`} className="text-zinc-900 w-60 min-w-[240px] p-4">
+    <Link href={`../product/${id}`} className="text-zinc-900 w-60 min-w-[240px] p-4">
       <div className="w-full h-80 relative bg-zinc-300">
         <img className="productImg" src={image} alt={`Image ${name}`} />
       </div>
@@ -10,6 +11,6 @@ export default function Card({ image, name, price, id }: ProductProps) {
         {name}
       </p>
       <h4 className="text-xl font-medium">{formatPrice(price)}</h4>
-    </a>
+    </Link>
   );
 }
