@@ -11,7 +11,6 @@ export default function ProductSelection({
     async function fetchProducts() {
       const promises = ids.map((id) => getProductById(id));
       Promise.all(promises).then((prods: ProductProps[]) => {
-        console.log(prods);
         setProducts(prods);
       });
     }

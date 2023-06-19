@@ -9,7 +9,6 @@ import { FaceFrownIcon } from "@heroicons/react/24/outline";
 export default function Cart() {
   const cart = useCart((state) => state.cart);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-	console.log(cart)
   useEffect(() => {
 		setCartItems(cart)
   }, [cart]);

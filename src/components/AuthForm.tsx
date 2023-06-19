@@ -30,6 +30,7 @@ export default function AuthForm({ mode }: IAuthForm) {
       const res: AuthPayload = await auth(mode, data);
       cookies.save(res);
       setRole(res.role);
+      console.log("Authform res: ", res);
       router.push("/");
     } catch (er) {
       setError(`${er}`);
