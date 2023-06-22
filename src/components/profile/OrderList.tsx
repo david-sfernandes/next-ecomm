@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import AdminOrder from "./AdminOrder";
 import Order from "./Order";
@@ -13,6 +14,9 @@ export default function OrderList({
 
   return (
     <section>
+      <Head>
+        <title>{!isAdmin ? "Perfil" : "Gestão"} | MoveStore</title>
+      </Head>
       <div className="flex w-full justify-between h-fit items-center my-3">
         <h3 className="sectionTitle text-zinc-950 p-0 m-0">
           {!isAdmin ? "Meus pedidos" : "Gestão"}

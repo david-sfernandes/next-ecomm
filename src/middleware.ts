@@ -9,7 +9,6 @@ export default async function middleware(req: NextRequest) {
   if (!signedinPages.find((p) => p === path)) return;
 
   const token = req.cookies.get("token")?.value;
-  console.log(token);
   if (!token) return NextResponse.redirect(new URL("/signin", req.url));
 
   const role = req.cookies.get("role")?.value;

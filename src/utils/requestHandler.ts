@@ -3,7 +3,7 @@ import cookies from "./cookies";
 
 async function refreshToken() {
   const cookieCutter = (await import("cookie-cutter")).default;
-  const res = await fetch("https://movestore-production.up.railway.app/api/v1/auth/refresh", {
+  const res = await fetch("http://localhost:8080/api/v1/auth/refresh", {
     method: "POST",
     headers: {
       Authorization: "Bearer " + cookieCutter.get("refreshToken"),

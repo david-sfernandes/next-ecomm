@@ -18,7 +18,7 @@ export default function Banner() {
         <p className="sm:w-2/3 lg:w-1/3 mt-2">
           Use o cupom CASA10 para 10% de desconto
         </p>
-        <Link href="../all" className="flex text-sm items-center font-light mt-2">
+        <Link href="../all" className="flex text-sm items-center font-light mt-2 hover:underline">
           <ArrowRightCircleIcon className="h-5 text-blue-500 mr-2" />
           Veja todos os nossos produtos
         </Link>

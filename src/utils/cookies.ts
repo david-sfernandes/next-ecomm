@@ -12,14 +12,9 @@ function clean() {
   cookieCutter.set("role", "");
 }
 
-function getByKey(key: CookiesKeys) {
-  return cookieCutter.get(key);
-}
-
 const cookies = {
   save,
-  clean,
-  getByKey,
+  clean
 };
 
 export default cookies;
