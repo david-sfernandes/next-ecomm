@@ -4,6 +4,8 @@ import cookies from "@/utils/cookies";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import FormInput from "./FormInput";
+import Head from "next/head";
+import Link from "next/link";
 
 export default function AuthForm({ mode }: IAuthForm) {
   const router = useRouter();
@@ -30,7 +32,6 @@ export default function AuthForm({ mode }: IAuthForm) {
       const res: AuthPayload = await auth(mode, data);
       cookies.save(res);
       setRole(res.role);
-      console.log("Authform res: ", res);
       router.push("/");
     } catch (er) {
       setError(`${er}`);
@@ -55,6 +56,9 @@ export default function AuthForm({ mode }: IAuthForm) {
 
   return (
     <main className="pt-24 transition-transform duration-75">
+      <Head>
+        <title>{mode == "signin" ? "Login" : "Cadastro"} | MoveStore</title>
+      </Head>
       <form
         onSubmit={handleSubmit}
         className="px-5 py-5 rounded-md border border-gray-300 shadow mx-auto
@@ -110,6 +114,11 @@ export default function AuthForm({ mode }: IAuthForm) {
         </button>
         <br />
         {error && <span className="errorTxt">{error}</span>}
+        {mode == "signin" ? (
+          <p className="smText">► Ainda não possui cadastro? <Link href="../signup" className="textLink">Clique aqui.</Link></p>
+        ) : (
+          <p className="smText">► Já possui cadastro? <Link href="../signin" className="textLink">Clique aqui.</Link></p>
+        )}
       </form>
     </main>
   );

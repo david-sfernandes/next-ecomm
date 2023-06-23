@@ -3,28 +3,30 @@ import Layout from "@/components/Layout";
 import OrderList from "@/components/profile/OrderList";
 import useRole from "@/utils/authStore";
 import cookies from "@/utils/cookies";
-import orders from "@/utils/orders";
+import { getOrders } from "@/utils/orders";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
-  const { role, setRole } = useRole((state) => state);
+  const { role: userRole, setRole: setUserRole } = useRole((state) => state);
   const [orderList, setOrderList] = useState<OrderProps[]>([]);
   const [hasError, setHasError] = useState(false);
   const router = useRouter();
+  const [role, setRole] = useState<Role>("");
 
   useEffect(() => {
-    async function getOrders() {
-      const res = await orders.get().catch(() => setHasError(true));
+    async function fetchOrders() {
+      const res = await getOrders().catch(() => setHasError(true));
       setOrderList(res);
     }
-    getOrders();
+    fetchOrders();
+    setRole(userRole);
   }, []);
 
   const signOut = () => {
     cookies.clean();
-    setRole("");
+    setUserRole("");
     router.push("/signin");
   };
 
@@ -41,7 +43,7 @@ export default function ProfilePage() {
           <OrderList role={role} orderList={orderList} />
         )}
         <button className="redBtn mt-3" onClick={() => signOut()}>
-          Sair
+          Log out
         </button>
       </main>
     </Layout>

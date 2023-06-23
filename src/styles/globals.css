@@ -138,4 +138,16 @@ body {
     @apply flex flex-col items-center justify-center w-full h-64 border-2 rounded-lg
     border-gray-300 border-dashed cursor-pointer bg-gray-50 hover:bg-gray-100;
   }
+	
+	.loadingSpin {
+		@apply h-6 w-6 mx-2 border-2 border-gray-500 border-b-blue-500 animate-spin rounded-full;
+	}
+
+  .smText {
+    @apply text-sm mt-4;
+  }
+
+  .textLink {
+    @apply text-blue-500 hover:underline;
+  }
 }

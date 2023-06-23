@@ -5,7 +5,7 @@ export const auth = async (mode: AuthMode, data: AuthFormData) => {
     body.role = "USER";
   }
 
-  const res = await fetch(`https://movestore-production.up.railway.app/api/v1/auth/${mode}`, {
+  const res = await fetch(`https://movestore-production.up.railway.app0/api/v1/auth/${mode}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,6 +13,6 @@ export const auth = async (mode: AuthMode, data: AuthFormData) => {
     body: JSON.stringify(body),
   });
   
-  if (res.status > 399 && res.status < 200) throw new Error();
+  if (res.status >= 300) throw new Error();
   return await res.json();
 };

@@ -2,7 +2,7 @@ import { ProductRequest } from "@/utils/productRequest";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
-import { FormEvent, useEffect, useRef, useState, ChangeEvent } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { addProduct } from "../utils/products";
 import FormInput from "./FormInput";
 
@@ -22,25 +22,15 @@ export default function StockForm({
     description: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState("");
   const fileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   useEffect(() => {
-    setToken(cookieCutter.get("token"));
     if (product) setData(product);
   }, []);
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>, key: string) => {
-    setData((data) => {
-      let v = e.target.value;
-      let k = key as keyof ProductProps;
-
-      if (k == "price" || k == "quantity" || k == "id") data[k] = +v;
-      else data[k] = v;
-
-      return data;
-    });
+    setData((data) => ({ ...data, [key]: e.target.value }));
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -52,12 +42,10 @@ export default function StockForm({
       fileInput.current?.files.length > 0
     ) {
       const requestBody = new ProductRequest(data, fileInput.current?.files[0]);
-      addProduct(token, requestBody)
-        .then((res) => console.log(res))
-        .then(() => {
-          setIsLoading(false);
-          router.reload();
-        });
+      addProduct(requestBody).then(() => {
+        setIsLoading(false);
+        router.reload();
+      });
     }
   };
 

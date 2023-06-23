@@ -1,5 +1,5 @@
 import formatPrice from "@/utils/formatPrice";
-import orders from "@/utils/orders";
+import { postOrder } from "@/utils/orders";
 import { getProductById } from "@/utils/products";
 import useCart from "@/utils/store";
 import cookieCutter from "cookie-cutter";
@@ -21,10 +21,8 @@ export default function TotalSection({
   const [cupom, setCupom] = useState("");
   const [error, setError] = useState("");
   const [subTotal, setSubTotal] = useState(0);
-  const [token, setToken] = useState("");
   const { comfirmOrder, validateCupom, discount } = useCart((state) => state);
   useEffect(() => {
-    setToken(cookieCutter.get("token"));
     setSubTotal(0);
     cart.forEach(async (item, i) => {
       await getProductById(item.id).then((product) => {
@@ -43,13 +41,12 @@ export default function TotalSection({
   }, [subTotal]);
 
   const handleConfirm = async () => {
-    orders
-      .postOrder(cart)
+    postOrder(cart)
       .then((res: OrderProps) => {
         comfirmOrder();
         router.push(`/confirmation?order=${res.id}`);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => setError(e));
   };
 
   return (

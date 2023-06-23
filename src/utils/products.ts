@@ -19,20 +19,20 @@ productRequest.interceptors.response.use(
 export async function getProductById(id: number) {
   const res = await fetch(`https://movestore-production.up.railway.app/api/v1/products/${id}`);
 
-  if (res.status > 399 && res.status < 200) throw new Error();
+  if (res.status >= 300) throw new Error();
   return await res.json();
 }
 
 export async function getProducts() {
   const res = await fetch("https://movestore-production.up.railway.app/api/v1/products/");
 
-  if (res.status > 399 && res.status < 200) throw new Error();
+  if (res.status >= 300) throw new Error();
   return await res.json();
 }
 
-export async function addProduct(token: string, body: ProductRequest) {
+export async function addProduct(body: ProductRequest) {
   const res = await productRequest.post("/", body.data);
 
-  if (res.status > 399 && res.status < 200) throw new Error();
+  if (res.status >= 300) throw new Error();
   return await res.data;
 }

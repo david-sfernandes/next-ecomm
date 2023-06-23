@@ -1,5 +1,5 @@
 import formatPrice from "@/utils/formatPrice";
-import orders from "@/utils/orders";
+import { updateOrderStatus } from "@/utils/orders";
 import { useEffect, useState } from "react";
 import { OrderStatus } from "../../../typings/OrderStatus";
 
@@ -30,7 +30,7 @@ export default function Order({ order }: { order: OrderProps }) {
       </table>
       <button
         className="outlineRedBtn my-auto"
-        onClick={() => orders.updateStatus(OrderStatus.CANCELED, order.id)}
+        onClick={() => updateOrderStatus(OrderStatus.CANCELED, order.id)}
       >
         Cancelar
       </button>
