@@ -50,44 +50,44 @@ export default function ProductDetails({ product }: { product: ProductProps }) {
             Produto não está disponivel no momento.
           </p>
         ) : (
-          <div className="my-3 flex items-center">
-            <p className="font-medium mr-4">Quantidade</p>
+          <>
+            <div className="my-3 flex items-center">
+              <p className="font-medium mr-4">Quantidade</p>
+              <button
+                className="qtyBtn"
+                disabled={qty < 2}
+                onClick={() => handleMinus()}
+              >
+                -
+              </button>
+              <input
+                type="number"
+                name="qty"
+                id="qty"
+                min={1}
+                max={product.quantity}
+                value={qty}
+                readOnly
+                className="mx-1 rounded-full border px-4 py-2 bg-gray-50 text-center"
+              />
+              <button
+                className="qtyBtn"
+                disabled={qty > 9}
+                onClick={() => handlePlus()}
+              >
+                +
+              </button>
+            </div>
             <button
-              className="qtyBtn"
-              disabled={qty < 2}
-              onClick={() => handleMinus()}
-            >
-              -
-            </button>
-            <input
-              type="number"
-              name="qty"
-              id="qty"
-              min={1}
-              max={product.quantity}
-              value={qty}
-              readOnly
-              className="mx-1 rounded-full border px-4 py-2 bg-gray-50 text-center"
-            />
-            <button
-              className="qtyBtn"
-              disabled={qty > 9}
-              onClick={() => handlePlus()}
-            >
-              +
-            </button>
-          </div>
-        )}
-        {product.quantity == 0 && (
-          <button
-            onClick={() => handleAddToCart()}
-            className="px-4 py-2 my-4 bg-green-500 disabled:bg-zinc-500
+              onClick={() => handleAddToCart()}
+              className="px-4 py-2 my-4 bg-green-500 disabled:bg-zinc-500
               text-white transition-all duration-150 hover:bg-green-700 
               hover:shadow-lg"
-            disabled={addedToCard}
-          >
-            {addedToCard ? "Adicionado no carrinho" : "Adicionar ao carrinho"}
-          </button>
+              disabled={addedToCard}
+            >
+              {addedToCard ? "Adicionado no carrinho" : "Adicionar ao carrinho"}
+            </button>
+          </>
         )}
       </div>
     </section>
