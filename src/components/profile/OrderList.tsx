@@ -22,7 +22,7 @@ export default function OrderList({
           {!isAdmin ? "Meus pedidos" : "Gestão"}
         </h3>
         {isAdmin && (
-          <Link href="/stock" className="submitBtn h-fit w-fit">
+          <Link href="/stock" className="blueBtn h-fit w-fit">
             Gestão de produtos
           </Link>
         )}

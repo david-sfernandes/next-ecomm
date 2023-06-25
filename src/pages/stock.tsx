@@ -44,7 +44,7 @@ export default function StockPage() {
         <div className="flex justify-between items-center my-3">
           <h2 className="">{products.length} Produtos cadastrados</h2>
           <button
-            className="submitBtn flex w-fit"
+            className="blueBtn flex w-fit"
             onClick={() => handleAddNew()}
           >
             <PlusIcon className="h-5 mr-1" /> Adicionar novo

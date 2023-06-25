@@ -47,7 +47,7 @@ export default function AdminOrder({ order }: { order: OrderProps }) {
         </select>
       </div>
       <button
-        className="submitBtn sm:my-auto mt-2"
+        className="blueBtn sm:my-auto mt-2"
         disabled={disable}
         onClick={() => handleSave()}
       >

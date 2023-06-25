@@ -109,7 +109,7 @@ export default function AuthForm({ mode }: IAuthForm) {
             onInput={handleCheckPassword}
           />
         )}
-        <button type="submit" className="submitBtn" disabled={loading}>
+        <button type="submit" className="blueBtn" disabled={loading}>
           Confirmar
         </button>
         <br />

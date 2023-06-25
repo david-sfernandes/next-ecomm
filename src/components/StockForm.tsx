@@ -1,6 +1,5 @@
 import { ProductRequest } from "@/utils/productRequest";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { addProduct } from "../utils/products";
@@ -43,13 +42,15 @@ export default function StockForm({
       fileInput.current?.files.length > 0
     ) {
       const requestBody = new ProductRequest(data, fileInput.current?.files[0]);
-      addProduct(requestBody).then(() => {
-        setIsLoading(false);
-        router.reload();
-      }).catch(e => {
-        setIsLoading(false);
-        setError(`${e}`)
-      });
+      addProduct(requestBody)
+        .then(() => {
+          setIsLoading(false);
+          router.reload();
+        })
+        .catch((e) => {
+          setIsLoading(false);
+          setError(`${e}`);
+        });
     }
   };
 
@@ -139,7 +140,7 @@ export default function StockForm({
             >
               Cancelar
             </button>
-            <button type="submit" className="submitBtn" disabled={isLoading}>
+            <button type="submit" className="blueBtn" disabled={isLoading}>
               {isLoading ? (
                 <div className="border-2 border-blue-100 border-r-blue-500 h-4 w-4 animate-spin rounded-full mx-auto" />
               ) : (

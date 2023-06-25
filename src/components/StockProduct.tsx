@@ -17,7 +17,7 @@ export default function StockProduct(product: ProductProps & onEditProp) {
       </div>
       <button
         onClick={() => product.onEdit(product)}
-        className="submitBtn h-fit ml-auto"
+        className="blueBtn h-fit ml-auto"
       >
         Editar
       </button>
