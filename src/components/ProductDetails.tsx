@@ -1,4 +1,5 @@
 import useCart from "@/utils/store";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import ColorOption from "./ColorOption";
 
@@ -44,7 +45,10 @@ export default function ProductDetails({ product }: { product: ProductProps }) {
         </p>
         <ColorOption />
         {product.quantity == 0 ? (
-          <p>Produto não está disponivel no momento.</p>
+          <p className="mt-2 flex">
+            <XCircleIcon className="h-6 text-gray-950 mr-2" />
+            Produto não está disponivel no momento.
+          </p>
         ) : (
           <div className="my-3 flex items-center">
             <p className="font-medium mr-4">Quantidade</p>
@@ -74,15 +78,17 @@ export default function ProductDetails({ product }: { product: ProductProps }) {
             </button>
           </div>
         )}
-        <button
-          onClick={() => handleAddToCart()}
-          className="px-4 py-2 my-4 bg-green-500 disabled:bg-zinc-500
-            text-white transition-all duration-150 hover:bg-green-700 
-            hover:shadow-lg"
-          disabled={addedToCard}
-        >
-          {addedToCard ? "Adicionado no carrinho" : "Adicionar ao carrinho"}
-        </button>
+        {product.quantity == 0 && (
+          <button
+            onClick={() => handleAddToCart()}
+            className="px-4 py-2 my-4 bg-green-500 disabled:bg-zinc-500
+              text-white transition-all duration-150 hover:bg-green-700 
+              hover:shadow-lg"
+            disabled={addedToCard}
+          >
+            {addedToCard ? "Adicionado no carrinho" : "Adicionar ao carrinho"}
+          </button>
+        )}
       </div>
     </section>
   );
