@@ -24,6 +24,7 @@ export default function StockForm({
   const [isLoading, setIsLoading] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (product) setData(product);
@@ -45,6 +46,9 @@ export default function StockForm({
       addProduct(requestBody).then(() => {
         setIsLoading(false);
         router.reload();
+      }).catch(e => {
+        setIsLoading(false);
+        setError(`${e}`)
       });
     }
   };
@@ -143,6 +147,7 @@ export default function StockForm({
               )}
             </button>
           </div>
+          {error && <span className="errorTxt">{error}</span>}
         </form>
       </div>
     </section>

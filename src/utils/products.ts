@@ -3,7 +3,7 @@ import { ProductRequest } from "./productRequest";
 import axiosConfigs from "./requestHandler";
 
 const productRequest = axios.create(
-  axiosConfigs.defaultConfiguration("https://movestore-production.up.railway.app/api/v1/products")
+  axiosConfigs.defaultConfiguration("https://movestore-production.up.railway.app/api/v1/products", "multipart/form-data")
 );
 
 productRequest.interceptors.request.use(
