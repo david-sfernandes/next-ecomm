@@ -6,6 +6,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import cookieCutter from "cookie-cutter";
 import { getProducts } from "@/utils/products";
+import Head from "next/head";
 
 export default function StockPage() {
   const [currentProduct, setCurrentProduct] = useState<
@@ -35,6 +36,9 @@ export default function StockPage() {
 
   return (
     <Layout>
+      <Head>
+        <title>Gestão de produtos | MoveStore</title>
+      </Head>
       <HeadImg img="/pexels-ben-mack-6775268.jpg" text="Gestão de Produtos" />
       <main className="defaultMain">
         <div className="flex justify-between items-center my-3">

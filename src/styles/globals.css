@@ -118,7 +118,8 @@ body {
 
   .outlineRedBtn {
     @apply submitBtn bg-white hover:bg-red-700 focus:ring-red-300
-    text-red-700 hover:text-white border border-red-700;
+    text-red-700 hover:text-white border border-red-700
+    disabled:bg-gray-400 disabled:text-gray-100 disabled:border-gray-500;
   }
 
   .errorTxt {
@@ -149,5 +150,9 @@ body {
 
   .textLink {
     @apply text-blue-500 hover:underline;
+  }
+
+  .orderData {
+    @apply flex flex-1 sm:flex-col justify-between;
   }
 }

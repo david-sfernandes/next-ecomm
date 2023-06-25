@@ -28,35 +28,26 @@ export default function AdminOrder({ order }: { order: OrderProps }) {
   };
 
   return (
-    <div className="roundedCard">
-      <table className="w-full">
-        <tbody>
-          <tr>
-            <td>PEDIDO REALIZADO</td>
-            <td>TOTAL</td>
-            <td>PEDIDO nº{order.id}</td>
-          </tr>
-          <tr>
-            <td>{orderDate.toLocaleString("pt-br")}</td>
-            <td>{formatPrice(totalValue)}</td>
-            <td>
-              <select
-                name="status"
-                onChange={(e) => handleInput(e)}
-                value={status}
-              >
-                <option value={OrderStatus.CONFIRMED}>COMFIRMADO</option>
-                <option value={OrderStatus.SHIPPING}>EM TRANSITO</option>
-                <option value={OrderStatus.DELIVERED}>EMTREGUE</option>
-                <option value={OrderStatus.CANCELED}>CANCELADO</option>
-              </select>
-            </td>
-          </tr>
-          <tr></tr>
-        </tbody>
-      </table>
+    <div className="roundedCard flex flex-col sm:flex-row w-full gap-1 flex-wrap">
+      <div className="orderData">
+        <h5>PEDIDO REALIZADO</h5>
+        <p>{orderDate.toLocaleString("pt-br")}</p>
+      </div>
+      <div className="orderData">
+        <h5>TOTAL</h5>
+        <p>{formatPrice(totalValue)}</p>
+      </div>
+      <div className="orderData">
+        <h5>PEDIDO nº{order.id}</h5>
+        <select name="status" onChange={(e) => handleInput(e)} value={status}>
+          <option value={OrderStatus.CONFIRMED}>COMFIRMADO</option>
+          <option value={OrderStatus.SHIPPING}>EM TRANSITO</option>
+          <option value={OrderStatus.DELIVERED}>EMTREGUE</option>
+          <option value={OrderStatus.CANCELED}>CANCELADO</option>
+        </select>
+      </div>
       <button
-        className="submitBtn my-auto"
+        className="submitBtn sm:my-auto mt-2"
         disabled={disable}
         onClick={() => handleSave()}
       >
