@@ -13,7 +13,7 @@ export default function ProductDetails({ product }: { product: ProductProps }) {
   };
 
   const handlePlus = () => {
-    if (qty < 10) setQty((qty) => qty + 1);
+    if (qty < product.quantity) setQty((qty) => qty + 1);
   };
 
   const handleMinus = () => {
@@ -43,33 +43,37 @@ export default function ProductDetails({ product }: { product: ProductProps }) {
           ipsa sequi?
         </p>
         <ColorOption />
-        <div className="my-3 flex items-center">
-          <p className="font-medium mr-4">Quantidade</p>
-          <button
-            className="qtyBtn"
-            disabled={qty < 2}
-            onClick={() => handleMinus()}
-          >
-            -
-          </button>
-          <input
-            type="number"
-            name="qty"
-            id="qty"
-            min={1}
-            max={10}
-            value={qty}
-            readOnly
-            className="mx-1 rounded-full border px-4 py-2 bg-gray-50 text-center"
-          />
-          <button
-            className="qtyBtn"
-            disabled={qty > 9}
-            onClick={() => handlePlus()}
-          >
-            +
-          </button>
-        </div>
+        {product.quantity == 0 ? (
+          <p>Produto não está disponivel no momento.</p>
+        ) : (
+          <div className="my-3 flex items-center">
+            <p className="font-medium mr-4">Quantidade</p>
+            <button
+              className="qtyBtn"
+              disabled={qty < 2}
+              onClick={() => handleMinus()}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="qty"
+              id="qty"
+              min={1}
+              max={product.quantity}
+              value={qty}
+              readOnly
+              className="mx-1 rounded-full border px-4 py-2 bg-gray-50 text-center"
+            />
+            <button
+              className="qtyBtn"
+              disabled={qty > 9}
+              onClick={() => handlePlus()}
+            >
+              +
+            </button>
+          </div>
+        )}
         <button
           onClick={() => handleAddToCart()}
           className="px-4 py-2 my-4 bg-green-500 disabled:bg-zinc-500

@@ -46,7 +46,7 @@ export default function TotalSection({
         comfirmOrder();
         router.push(`/confirmation?order=${res.id}`);
       })
-      .catch((e) => setError(e));
+      .catch((e) => setError(`${e}`));
   };
 
   return (
